@@ -1,0 +1,77 @@
+import java.io.*;
+
+abstract class Employee {
+    int employeeId;
+    String employeeName;
+    double basicSalary;
+
+    Employee(int employeeId, String employeeName, double basicSalary) {
+        this.employeeId = employeeId;
+        this.employeeName = employeeName;
+        this.basicSalary = basicSalary;
+    }
+
+    abstract double calculateSalary();
+
+    void display() {
+        System.out.println("Employee ID: " + employeeId);
+        System.out.println("Employee Name: " + employeeName);
+        System.out.println("Salary: " + calculateSalary());
+    }
+}
+
+class PermanentEmployee extends Employee {
+    PermanentEmployee(int employeeId, String employeeName, double basicSalary) {
+        super(employeeId, employeeName, basicSalary);
+    }
+
+    double calculateSalary() {
+        double hra = 0.20 * basicSalary;
+        double da = 0.40 * basicSalary;
+        double pf = 0.12 * basicSalary;
+        double gross = basicSalary + hra + da;
+        return gross - pf;
+    }
+}
+
+class ContractEmployee extends Employee {
+    ContractEmployee(int employeeId, String employeeName, double basicSalary) {
+        super(employeeId, employeeName, basicSalary);
+    }
+
+    double calculateSalary() {
+        return basicSalary + (0.10 * basicSalary);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.print("Enter Permanent Employee ID: ");
+        int id1 = Integer.parseInt(br.readLine());
+
+        System.out.print("Enter Employee Name: ");
+        String name1 = br.readLine();
+
+        System.out.print("Enter Basic Salary: ");
+        double salary1 = Double.parseDouble(br.readLine());
+
+        System.out.print("Enter Contract Employee ID: ");
+        int id2 = Integer.parseInt(br.readLine());
+
+        System.out.print("Enter Employee Name: ");
+        String name2 = br.readLine();
+
+        System.out.print("Enter Basic Salary: ");
+        double salary2 = Double.parseDouble(br.readLine());
+
+        Employee e;
+
+        e = new PermanentEmployee(id1, name1, salary1);
+        e.display();
+
+        e = new ContractEmployee(id2, name2, salary2);
+        e.display();
+    }
+}
