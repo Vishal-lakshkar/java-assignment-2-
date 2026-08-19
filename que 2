@@ -1,0 +1,66 @@
+import java.io.*;
+
+class BankAccount {
+    int accountNumber;
+    String accountHolderName;
+    double balance;
+
+    BankAccount() {
+        accountNumber = 0;
+        accountHolderName = "Unknown";
+        balance = 0;
+    }
+
+    BankAccount(int accountNumber, String accountHolderName, double balance) {
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.balance = balance;
+    }
+
+    void deposit(double amount) {
+        balance = balance + amount;
+    }
+
+    void withdraw(double amount) {
+        if (amount <= balance)
+            balance = balance - amount;
+        else
+            System.out.println("Insufficient Balance");
+    }
+
+    void displayAccount() {
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Account Holder: " + accountHolderName);
+        System.out.println("Balance: " + balance);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        BankAccount a1 = new BankAccount();
+
+        System.out.println("Enter Account Number:");
+        int n = Integer.parseInt(br.readLine());
+
+        System.out.println("Enter Account Holder Name:");
+        String name = br.readLine();
+
+        System.out.println("Enter Balance:");
+        double balance = Double.parseDouble(br.readLine());
+
+        BankAccount a2 = new BankAccount(n, name, balance);
+
+        System.out.println("Enter Deposit Amount:");
+        double deposit = Double.parseDouble(br.readLine());
+        a2.deposit(deposit);
+
+        System.out.println("Enter Withdraw Amount:");
+        double withdraw = Double.parseDouble(br.readLine());
+        a2.withdraw(withdraw);
+
+        a1.displayAccount();
+        a2.displayAccount();
+    }
+}
